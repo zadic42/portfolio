@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Header = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
     <header className="fixed top-0 left-0 right-0 bg-white shadow-sm z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -20,13 +22,63 @@ const Header = () => {
             </a>
           </div>
 
-          {/* Navigation */}
-          <nav className="flex items-center space-x-8">
+          {/* Mobile menu button */}
+          <div className="md:hidden">
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="text-gray-600 hover:text-blue-500 focus:outline-none"
+            >
+              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                {isMenuOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </button>
+          </div>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-8">
             <Link to="/" className="text-gray-600 hover:text-blue-500 font-serif">ABOUT</Link>
             <Link to="/projects" className="text-gray-600 hover:text-blue-500 font-serif">PROJECTS</Link>
             <Link to="/resume" className="text-gray-600 hover:text-blue-500 font-serif">RESUME</Link>
             <Link to="/contact" className="text-gray-600 hover:text-blue-500 font-serif">CONTACT</Link>
           </nav>
+        </div>
+
+        {/* Mobile Navigation */}
+        <div className={`md:hidden ${isMenuOpen ? 'block' : 'hidden'}`}>
+          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            <Link
+              to="/"
+              className="block px-3 py-2 text-gray-600 hover:text-blue-500 font-serif"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              ABOUT
+            </Link>
+            <Link
+              to="/projects"
+              className="block px-3 py-2 text-gray-600 hover:text-blue-500 font-serif"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              PROJECTS
+            </Link>
+            <Link
+              to="/resume"
+              className="block px-3 py-2 text-gray-600 hover:text-blue-500 font-serif"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              RESUME
+            </Link>
+            <Link
+              to="/contact"
+              className="block px-3 py-2 text-gray-600 hover:text-blue-500 font-serif"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              CONTACT
+            </Link>
+          </div>
         </div>
       </div>
     </header>
